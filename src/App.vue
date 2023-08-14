@@ -2,7 +2,7 @@
     <div>
         <h1>ToDo List</h1>
         <TodoList :todoList="todoList" />
-        <TodoForm @createTodo="handleCreateTodo"/>
+        <TodoForm @addTodo="handleAddTodo"/>
     </div>
 </template>
 
@@ -50,7 +50,7 @@ export default {
         };
     },
     methods: {
-        handleCreateTodo(todo) {
+        handleAddTodo(todo) {
           this.todoList.push(todo);
         }
     }

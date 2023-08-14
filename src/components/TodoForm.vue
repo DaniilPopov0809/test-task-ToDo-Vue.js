@@ -1,9 +1,9 @@
 <template>
     <div>
-        <form @submit.prevent="createTodo">
+        <form @submit.prevent="addTodo">
             <input v-model="todo.title" type="text" placeholder="Enter title" />
             <input v-model="todo.content" type="text" placeholder="Enter content" />
-            <button type="submit">Create</button>
+            <button type="submit">Add</button>
         </form>
     </div>
 </template>
@@ -20,14 +20,12 @@ export default {
                 content: '',
             }
         }
-
-
     },
     methods: {
-        createTodo() {
+        addTodo() {
             this.todo.id = nanoid();
             this.todo.created = getCurrentDate();
-            this.$emit('createTodo', this.todo);
+            this.$emit('addTodo', this.todo);
             this.todo = {
                 title: '',
                 content: '',

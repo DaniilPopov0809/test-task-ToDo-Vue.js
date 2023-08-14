@@ -1,23 +1,18 @@
 <template>
     <div>
         <ul class="todo-list">
-            <li v-for="todo in todoList" :key="todo.id" class="todo-item">
-                <div class="todo-details">
-                    <p><strong>Title:</strong> {{ todo.title }}</p>
-                    <p><strong>Create:</strong> {{ todo.created }}</p>
-                    <p><strong>Content:</strong> {{ todo.content }}</p>
-                </div>
-                <div class="todo-operations">
-                    <button type="button">Edit</button>
-                    <button type="button">Delete</button>
-                </div>
-            </li>
+            <TodoItem v-for="todo in todoList" :key="todo.id" :todo="todo"/>
         </ul>
     </div>
 </template>
 
 <script>
+import TodoItem from '@/components/TodoItem.vue';
+
 export default {
+    components: {
+        TodoItem,
+    },
     props: {
         todoList: {
             type: Array,
