@@ -1,8 +1,8 @@
 <template>
     <div>
-        <ul class="todo-list" v-if="todoList.length > 0">
+        <ul class="todo-list" v-if="sortedTodoList.length > 0">
             <TodoItem 
-            v-for="todo in todoList" 
+            v-for="todo in sortedTodoList" 
             :key="todo.id" 
             :todo="todo" 
             />
@@ -13,7 +13,7 @@
 
 <script>
 import TodoItem from '@/components/TodoItem.vue';
-import { mapState } from 'vuex';
+import { mapState, mapGetters } from 'vuex';
 
 export default {
     components: {
@@ -23,6 +23,9 @@ export default {
     ...mapState({
       todoList: state => state.todo.todoList,
     }),
+    ...mapGetters({
+        sortedTodoList: "todo/sortedTodoList",
+        })
   },
 }
 </script>

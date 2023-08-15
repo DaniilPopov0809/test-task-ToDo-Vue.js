@@ -6,15 +6,15 @@
             <p><strong>Content:</strong> {{ todo.content }}</p>
         </div>
         <div class="todo-operations">
-            <TodoButton type="button" @click="handleOpenModal()">Edit</TodoButton>
-            <TodoButton type="button">Archive</TodoButton>
+            <TodoButton type="button" @click="handleOpenModal">Edit</TodoButton>
+            <TodoButton type="button" @click="handleToggleArchive">{{archivedTodo? "Unarchive":"Archive"}}</TodoButton>
             <TodoButton type="button" @click="removeTodo(todo.id)">Delete</TodoButton>
         </div>
     </li>
 </template>
 
 <script>
-import { mapActions } from 'vuex';
+import { mapActions, mapState } from 'vuex';
 
 export default {
     props: {
@@ -37,6 +37,11 @@ export default {
                 typeof value.archive === 'boolean';
         }
     },
+    computed: {
+        ...mapState({
+            archivedTodo: (state) => state.todo.archivedTodo,
+        })
+    },
     methods : {
         handleOpenModal() {
             this.changeCurrentTodo(this.todo);
@@ -45,11 +50,17 @@ export default {
             
             
         },
+        handleToggleArchive() {
+            const newTodo = {...this.todo};
+            newTodo.archive = !newTodo.archive;
+            this.updateTodo(newTodo);
+        },
         ...mapActions({
             removeTodo: "todo/removeTodo",
             changeVisibleModal: "todo/changeVisibleModal",
             changeEditTodo: "todo/changeEditTodo",
-            changeCurrentTodo: "todo/changeCurrentTodo"
+            changeCurrentTodo: "todo/changeCurrentTodo",
+            updateTodo: "todo/updateTodo",
         })
     },
    

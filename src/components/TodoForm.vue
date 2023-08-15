@@ -1,7 +1,7 @@
 <template>
     <div>
         <form @submit.prevent="handleSubmit">
-            <TodoInput v-model="todo.title" type="text" placeholder="Enter title" />
+            <TodoInput v-model="todo.title" type="text" placeholder="Enter title" :required="isTitleRequired"/>
             <TodoInput v-model="todo.content" type="text" placeholder="Enter content" />
             <TodoButton type="submit">{{ titleButton }}</TodoButton>
         </form>
@@ -20,7 +20,8 @@ export default {
             todo: {
                 title: '',
                 content: '',
-            }
+            },
+            isTitleRequired: true,
         }
     },
     computed: {
@@ -49,6 +50,7 @@ export default {
         handleAddTodo() {
             this.todo.id = nanoid();
             this.todo.created = getCurrentDate();
+            this.todo.archive = false;
             this.addTodo(this.todo);
             this.todo = {
                 title: '',
