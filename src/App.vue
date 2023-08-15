@@ -1,26 +1,53 @@
 <template>
-  <img alt="Vue logo" src="./assets/logo.png">
-  <HelloWorld msg="Welcome to Your Vue.js App"/>
+    <div>
+        <h1>{{ archivedTodo? "Archived ToDo" : "Active ToDo" }}</h1>
+        <TodoList />
+        <TodoModal>
+            <TodoForm />
+        </TodoModal>
+        <TodoButton type="button" @click="handleOpenModal" :disabled="archivedTodo">Add todo</TodoButton>
+        <TodoButton type="button" @click="changeArchivedTodo(!archivedTodo)">{{ archivedTodo? "Show active" : "Show archive" }}</TodoButton>
+        <TodoSelect
+        :model-value="selectedSort"
+        @update:model-value="changeSelectedSort"
+        :options="sortOptions"
+        />
+    </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+import TodoList from "@/components/TodoList.vue";
+import TodoForm from "@/components/TodoForm.vue";
+import { mapActions, mapState, mapMutations } from "vuex";
 
 export default {
-  name: 'App',
-  components: {
-    HelloWorld
-  }
-}
+    components: {
+        TodoList, TodoForm
+    },
+
+    computed: {
+        ...mapState({
+            archivedTodo: state => state.todo.archivedTodo,
+            selectedSort: state => state.todo.selectedSort,
+            sortOptions: state => state.todo.sortOptions,
+        })
+    },
+    methods: {
+        handleOpenModal () {
+            this.changeEditTodo(false);
+            this.changeVisibleModal(true);
+        },
+        ...mapActions({
+            changeVisibleModal: "todo/changeVisibleModal",
+            changeEditTodo: "todo/changeEditTodo",
+            changeArchivedTodo: "todo/changeArchivedTodo",
+            
+        }),
+        ...mapMutations({
+            changeSelectedSort: "todo/changeSelectedSort",
+        })
+    }
+};
 </script>
 
-<style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
-</style>
+<style></style>
