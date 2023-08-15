@@ -1,35 +1,6 @@
 export const todoModule = {
   state: () => ({
-    todoList: [
-      {
-        id: "vperTKBsSa_qi4pesmGNA",
-        title: "Shopping List",
-        created: "Jule 27, 2023",
-        content: "Tomatossdd, bread",
-        archive: false,
-      },
-      {
-        id: "vperTKBsSa_qi4pesmGLD",
-        title: "Books",
-        created: "May 07, 2023",
-        content: "Learn startup",
-        archive: true,
-      },
-      {
-        id: "vperTKBsSa_qi4pesmMAC",
-        title: "New Feature",
-        created: "March 15, 2023",
-        content: "Implant",
-        archive: false,
-      },
-      {
-        id: "vperTKBsSa_qi4pesmOLX",
-        title: "To do exercise",
-        created: "June 20, 2023",
-        content: "Run, Push ups",
-        archive: false,
-      },
-    ],
+    todoList: JSON.parse(localStorage.getItem('todoList')) || [],
     editTodo: false,
     currentTodo: null,
     visibleModal: false,
@@ -38,16 +9,19 @@ export const todoModule = {
   mutations: {
     addTodo(state, todo) {
       state.todoList.push(todo);
+      localStorage.setItem('todoList', JSON.stringify(state.todoList));
     },
     removeTodo(state, todoId) {
       const index = state.todoList.findIndex((todo) => todo.id === todoId);
       if (index !== -1) {
         state.todoList.splice(index, 1);
+        localStorage.setItem('todoList', JSON.stringify(state.todoList));
       }
     },
     updateTodo(state, newTodo) {
       const index = state.todoList.findIndex((todo) => todo.id === newTodo.id);
       state.todoList[index] = newTodo;
+      localStorage.setItem('todoList', JSON.stringify(state.todoList));
     },
     changeCurrentTodo(state, todo) {
       state.currentTodo = todo;
