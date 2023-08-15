@@ -1,18 +1,20 @@
 <template>
     <div>
-        <form @submit.prevent="addTodo">
-            <input v-model="todo.title" type="text" placeholder="Enter title" />
-            <input v-model="todo.content" type="text" placeholder="Enter content" />
-            <button type="submit">Add</button>
+        <form @submit.prevent="handleAddTodo">
+            <TodoInput v-model="todo.title" type="text" placeholder="Enter title" />
+            <TodoInput v-model="todo.content" type="text" placeholder="Enter content" />
+            <TodoButton type="submit">Add</TodoButton>
         </form>
     </div>
 </template>
 
 <script>
-import {getCurrentDate} from "@/helpers/getCurrentDate"
+import { getCurrentDate } from "@/helpers/getCurrentDate"
 import { nanoid } from "nanoid";
+import { mapActions } from 'vuex';
 
 export default {
+
     data() {
         return {
             todo: {
@@ -22,15 +24,20 @@ export default {
         }
     },
     methods: {
-        addTodo() {
+        handleAddTodo() {
             this.todo.id = nanoid();
             this.todo.created = getCurrentDate();
-            this.$emit('addTodo', this.todo);
+            this.addTodo(this.todo);
             this.todo = {
                 title: '',
                 content: '',
             }
-        }
+            this.changeVisibleModal(false);
+        },
+        ...mapActions({
+            addTodo: "todo/addTodo",
+            changeVisibleModal: "todo/changeVisibleModal",
+        })
     }
 }
 </script>

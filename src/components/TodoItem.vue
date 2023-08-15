@@ -6,14 +6,16 @@
             <p><strong>Content:</strong> {{ todo.content }}</p>
         </div>
         <div class="todo-operations">
-            <button type="button">Edit</button>
-            <button type="button">Archive</button>
-            <button type="button">Delete</button>
+            <TodoButton type="button">Edit</TodoButton>
+            <TodoButton type="button">Archive</TodoButton>
+            <TodoButton type="button" @click="removeTodo(todo.id)">Delete</TodoButton>
         </div>
     </li>
 </template>
 
 <script>
+import { mapActions } from 'vuex';
+
 export default {
     props: {
         todo: {
@@ -34,7 +36,13 @@ export default {
                 typeof value.content === 'string' &&
                 typeof value.archive === 'boolean';
         }
-    }
+    },
+    methods : {
+        ...mapActions({
+            removeTodo: "todo/removeTodo",
+        })
+    },
+   
 }
 </script>
 
