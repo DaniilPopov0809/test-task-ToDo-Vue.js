@@ -6,7 +6,7 @@
             <p><strong>Content:</strong> {{ todo.content }}</p>
         </div>
         <div class="todo-operations">
-            <TodoButton type="button">Edit</TodoButton>
+            <TodoButton type="button" @click="handleOpenModal()">Edit</TodoButton>
             <TodoButton type="button">Archive</TodoButton>
             <TodoButton type="button" @click="removeTodo(todo.id)">Delete</TodoButton>
         </div>
@@ -38,8 +38,18 @@ export default {
         }
     },
     methods : {
+        handleOpenModal() {
+            this.changeCurrentTodo(this.todo);
+            this.changeEditTodo(true);
+            this.changeVisibleModal(true);
+            
+            
+        },
         ...mapActions({
             removeTodo: "todo/removeTodo",
+            changeVisibleModal: "todo/changeVisibleModal",
+            changeEditTodo: "todo/changeEditTodo",
+            changeCurrentTodo: "todo/changeCurrentTodo"
         })
     },
    

@@ -5,7 +5,7 @@
         <TodoModal>
             <TodoForm />
         </TodoModal>
-        <TodoButton type="button" @click="changeVisibleModal(true)">Create Todo</TodoButton>
+        <TodoButton type="button" @click="handleOpenModal">Add todo</TodoButton>
     </div>
 </template>
 
@@ -19,8 +19,13 @@ export default {
         TodoList, TodoForm
     },
     methods: {
+        handleOpenModal () {
+            this.changeEditTodo(false);
+            this.changeVisibleModal(true);
+        },
         ...mapActions({
             changeVisibleModal: "todo/changeVisibleModal",
+            changeEditTodo: "todo/changeEditTodo",
         })
     }
 };

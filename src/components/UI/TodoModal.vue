@@ -1,7 +1,10 @@
 <template>
-    <div class="backdrop" v-if="visibleModal" @click="changeVisibleModal(false)">
+    <div class="backdrop" v-if="visibleModal" @click="handleCloseModal">
         <div class="modal" @click.stop>
+            
+            <h2>{{ this.title }}</h2>      
             <slot></slot>
+
         </div>
     </div>
 </template>
@@ -11,16 +14,22 @@ import {mapState, mapActions} from "vuex";
 
 export default {
     name: "TodoModal",
-    props: {
-        show: Boolean,
-    },
     computed: {
         ...mapState({
             visibleModal: state => state.todo.visibleModal,
-        })
+            editTodo: state => state.todo.editTodo,
+        }),
+        title() {
+            return this.editTodo ? 'Edit todo' : 'Create todo';
+        }
     },
     methods: {
+        handleCloseModal() {
+            this.changeCurrentTodo(null);
+            this.changeVisibleModal(false);
+        },
         ...mapActions({
+            changeCurrentTodo: "todo/changeCurrentTodo",
             changeVisibleModal: "todo/changeVisibleModal",
         })
     }

@@ -30,6 +30,8 @@ export const todoModule = {
         archive: false,
       },
     ],
+    editTodo: false,
+    currentTodo: null,
     visibleModal: false,
   }),
 
@@ -43,9 +45,19 @@ export const todoModule = {
         state.todoList.splice(index, 1);
       }
     },
-    changeVisibleModal (state, status) {
+    updateTodo(state, newTodo) {
+      const index = state.todoList.findIndex((todo) => todo.id === newTodo.id);
+      state.todoList[index] = newTodo;
+    },
+    changeCurrentTodo(state, todo) {
+      state.currentTodo = todo;
+    },
+    changeVisibleModal(state, status) {
       state.visibleModal = status;
-    }
+    },
+    changeEditTodo(state, status) {
+      state.editTodo = status;
+    },
   },
 
   actions: {
@@ -55,9 +67,18 @@ export const todoModule = {
     removeTodo({ commit }, todoId) {
       commit("removeTodo", todoId);
     },
-    changeVisibleModal ({commit}, status) {
+    updateTodo({ commit }, newTodo) {
+      commit("updateTodo", newTodo);
+    },
+    changeCurrentTodo({ commit }, todo) {
+      commit("changeCurrentTodo", todo);
+    },
+    changeVisibleModal({ commit }, status) {
       commit("changeVisibleModal", status);
-    }
+    },
+    changeEditTodo({ commit }, status) {
+      commit("changeEditTodo", status);
+    },
   },
 
   namespaced: true,
