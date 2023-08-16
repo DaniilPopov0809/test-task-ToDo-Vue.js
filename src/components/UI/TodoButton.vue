@@ -9,5 +9,3 @@ export default {
     name: "TodoButton"
 }
 </script>
-
-<style scoped></style>

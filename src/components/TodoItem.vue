@@ -1,16 +1,30 @@
 <template>
-    <li class="todo-item">
-        <div class="todo-details">
-            <p><strong>Title:</strong> {{ todo.title }}</p>
-            <p><strong>Create:</strong> {{ todo.created }}</p>
-            <p><strong>Content:</strong> {{ todo.content }}</p>
-        </div>
-        <div class="todo-operations">
-            <TodoButton type="button" @click="handleOpenModal">Edit</TodoButton>
-            <TodoButton type="button" @click="handleToggleArchive">{{archivedTodo? "Unarchive":"Archive"}}</TodoButton>
-            <TodoButton type="button" @click="removeTodo(todo.id)">Delete</TodoButton>
-        </div>
-    </li>
+    <tr className="border-b">
+        <td className="py-2 px-3 text-center">{{ todo.title }}</td>
+        <td className="py-2 px-3 text-center">{{ todo.created }}</td>
+        <td className="py-2 px-3 text-center">{{ todo.content }}</td>
+        <td className="py-2 px-3">
+            <div class="flex justify-center">
+                <TodoButton
+                    class="text-white bg-sky-400 shadow-md px-3 py-2 rounded-full hover:bg-sky-600 focus-visible:outline-none focus-visible:ring focus-visible:ring-sky-600 focus-visible:rounded-full duration-300 me-2 flex justify-center items-center"
+                    type="button" @click="handleOpenModal">
+                    <vue-feather type="edit"></vue-feather>
+                </TodoButton>
+                <TodoButton
+                    class="text-white bg-sky-400 shadow-md px-3 py-2 rounded-full hover:bg-sky-600 focus-visible:outline-none focus-visible:ring focus-visible:ring-sky-600 focus-visible:rounded-full duration-300 me-2 flex justify-center items-center"
+                    type="button" @click="handleToggleArchive">
+                    <vue-feather v-if="archivedTodo" type="arrow-up"></vue-feather>
+                     <vue-feather v-else type="arrow-down"></vue-feather>
+                    <vue-feather type="archive"></vue-feather>
+                </TodoButton>
+                <TodoButton
+                    class="text-white bg-sky-400 shadow-md px-3 py-2 rounded-full hover:bg-sky-600 focus-visible:outline-none focus-visible:ring focus-visible:ring-sky-600 focus-visible:rounded-full duration-300 flex justify-center items-center"
+                    type="button" @click="removeTodo(todo.id)">
+                    <vue-feather type="delete"></vue-feather>
+                </TodoButton>
+            </div>
+        </td>
+    </tr>
 </template>
 
 <script>
@@ -42,16 +56,16 @@ export default {
             archivedTodo: (state) => state.todo.archivedTodo,
         })
     },
-    methods : {
+    methods: {
         handleOpenModal() {
             this.changeCurrentTodo(this.todo);
             this.changeEditTodo(true);
             this.changeVisibleModal(true);
-            
-            
+
+
         },
         handleToggleArchive() {
-            const newTodo = {...this.todo};
+            const newTodo = { ...this.todo };
             newTodo.archive = !newTodo.archive;
             this.updateTodo(newTodo);
         },
@@ -63,8 +77,6 @@ export default {
             updateTodo: "todo/updateTodo",
         })
     },
-   
+
 }
 </script>
-
-<style></style>
