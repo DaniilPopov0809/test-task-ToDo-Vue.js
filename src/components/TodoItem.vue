@@ -4,7 +4,7 @@
         <td className="py-2 px-3 text-center">{{ todo.created }}</td>
         <td className="py-2 px-3 text-center">{{ todo.content }}</td>
         <td className="py-2 px-3">
-            <div class="flex justify-center">
+            <div class="flex justify-end">
                 <TodoButton
                     class="text-white bg-sky-400 shadow-md px-3 py-2 rounded-full hover:bg-sky-600 focus-visible:outline-none focus-visible:ring focus-visible:ring-sky-600 focus-visible:rounded-full duration-300 me-2 flex justify-center items-center"
                     type="button" @click="handleOpenModal">

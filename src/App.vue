@@ -3,12 +3,14 @@
         <TodoHeader />
         <main class="container mx-auto py-4 px-3">
             <h1 class="text-center mb-3 text-2xl font-bold">{{ archivedTodo ? "Archived ToDo" : "Active ToDo" }}</h1>
-            <div class="mb-3">
+            <div class="mb-3 flex">
                 <TodoButton
                     class="text-white bg-sky-400 shadow-md px-3 py-2 rounded-full hover:bg-sky-600 focus-visible:outline-none focus-visible:ring focus-visible:ring-sky-600 focus-visible:rounded-full duration-300 me-3"
                     type="button" @click="changeArchivedTodo(!archivedTodo)">{{ archivedTodo ? "Show active" : "Show archive" }}
                 </TodoButton>
-                <TodoSelect :model-value="selectedSort" @update:model-value="changeSelectedSort" :options="sortOptions" />
+                <TodoSelect :model-value="selectedSort" @update:model-value="changeSelectedSort" :options="sortOptions" 
+                class="text-white bg-sky-400 rounded-full border p-2 hover:border-sky-600 focus-visible:outline-none focus-visible:ring focus-visible:ring-sky-600 focus-visible:rounded-full duration-300 cursor-pointer"
+                />
             </div>
             <TodoList />
             <TodoModal>

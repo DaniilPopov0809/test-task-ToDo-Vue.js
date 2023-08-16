@@ -1,6 +1,6 @@
 <template>
-    <div>
-        <table class="border-solid rounded-t-lg mx-auto overflow-hidden max-w-full w-full mb-4">
+    <div class="w-full h-full overflow-x-auto">
+        <table class="border-solid rounded-t-lg mx-auto overflow-hidden w-full mb-4">
             <thead class="bg-sky-400 shadow-md">
                 <tr class="text-white ">
                     <th scope="col" class="py-2 px-3">
@@ -12,7 +12,7 @@
                     <th scope="col" class="py-2 px-3">
                         Content
                     </th>
-                    <th scope="col" class="py-2 px-3">
+                    <th scope="col" class="py-2 px-3 text-end">
                         Options
                     </th>
                 </tr>
