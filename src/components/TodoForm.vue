@@ -1,11 +1,33 @@
 <template>
-    <div>
-        <form @submit.prevent="handleSubmit">
-            <TodoInput v-model="todo.title" type="text" placeholder="Enter title" :required="isTitleRequired"/>
-            <TodoInput v-model="todo.content" type="text" placeholder="Enter content" />
-            <TodoButton type="submit">{{ titleButton }}</TodoButton>
-        </form>
-    </div>
+<div>
+  <form @submit.prevent="handleSubmit" class="flex flex-col items-center">
+    <label for="title" class="block text-gray-700 text-sm font-bold flex self-start mb-2">Title:</label>
+    <TodoInput
+      v-model="todo.title"
+      id="title"
+      type="text"
+      placeholder="Enter title"
+      :required="isTitleRequired"
+      class="rounded border p-2 w-full hover:border-sky-600 focus-visible:outline-none focus-visible:ring focus-visible:ring-sky-600 focus-visible:rounded duration-300 mb-4"
+    />
+    
+    <label for="content" class="block text-gray-700 text-sm font-bold flex self-start mb-2">Content:</label>
+    <TodoInput
+      v-model="todo.content"
+      id="content"
+      type="text"
+      placeholder="Enter content"
+      class="rounded border p-2 w-full hover:border-sky-600 focus-visible:outline-none focus-visible:ring focus-visible:ring-sky-600 focus-visible:rounded duration-300 mb-4"
+    />
+    
+    <TodoButton
+      class="text-white bg-sky-400 shadow-md px-3 py-2 rounded-full hover:bg-sky-600 focus-visible:outline-none focus-visible:ring focus-visible:ring-sky-600 focus-visible:rounded-full duration-300 "
+      type="submit"
+    >
+      {{ titleButton }}
+    </TodoButton>
+  </form>
+</div>
 </template>
 
 <script>
@@ -28,7 +50,7 @@ export default {
         ...mapState({
             editTodo: state => state.todo.editTodo,
             currentTodo: state => state.todo.currentTodo,
-            
+
         }),
         titleButton() {
             return this.editTodo ? "Save changes" : "Add todo";
@@ -58,9 +80,9 @@ export default {
             }
         },
         handleEditTodo() {
-            const newTodo = {...this.currentTodo};
-            newTodo.title = this.todo.title; 
-            newTodo.content = this.todo.content; 
+            const newTodo = { ...this.currentTodo };
+            newTodo.title = this.todo.title;
+            newTodo.content = this.todo.content;
             this.updateTodo(newTodo);
             this.todo = {
                 title: '',
@@ -79,5 +101,3 @@ export default {
     }
 }
 </script>
-
-<style></style>
