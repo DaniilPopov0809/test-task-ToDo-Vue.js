@@ -9,7 +9,7 @@
                     type="button" @click="changeArchivedTodo(!archivedTodo)">{{ archivedTodo ? "Show active" : "Show archive" }}
                 </TodoButton>
                 <TodoSelect :model-value="selectedSort" @update:model-value="changeSelectedSort" :options="sortOptions" 
-                class="text-white bg-sky-400 rounded-full border p-2 hover:border-sky-600 focus-visible:outline-none focus-visible:ring focus-visible:ring-sky-600 focus-visible:rounded-full duration-300 cursor-pointer"
+                class="text-white bg-sky-400 rounded-full border p-2 hover:bg-sky-600 focus-visible:outline-none focus-visible:ring focus-visible:ring-sky-600 focus-visible:rounded-full duration-300 cursor-pointer"
                 />
             </div>
             <TodoList />

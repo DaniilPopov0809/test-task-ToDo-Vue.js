@@ -1,6 +1,6 @@
 ## App view
 
-![Overview](./assets/overview.jpg)
+![Overview](./assets/overview.gif)
 
 ## Description of the project
 
